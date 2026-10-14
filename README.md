@@ -1,88 +1,136 @@
 # SpeakNext
 
-## One-line Introduction
+SpeakNext is an AI-assisted spoken-expression training product that identifies the single most valuable issue in a user's response, provides a minimal targeted intervention, and verifies whether that issue actually improves after retrying.
 
-SpeakNext is an AI-assisted spoken-expression training product that identifies the single most valuable issue in a user's response, provides a minimal targeted intervention, and verifies whether the user actually improves after retrying.
+> 判断你这次最值得练什么，用最少提示让你自己改，再确认这个问题是不是真的改善了。
 
-判断你这次最值得练什么，用最少提示让你自己改，再确认你是不是真的改好了。
+**Current module:** Information Reconstruction  
+**Stable baseline:** V0.5.10.3  
+**Status:** Working WeChat Mini Program · two rounds of exploratory real-user testing · U01–U10
 
-- **Current stage:** Real-user testing completed for Information Reconstruction.
-- **Stable baseline:** V0.5.10.3
-- **Format:** WeChat Mini Program working prototype + AI product case study
+## Product Preview
 
-## Demo / Product Preview
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <strong>1. Read &amp; Retell</strong><br><br>
+      <img src="assets/screenshots/01-reading.png" alt="Reading material screen" width="220"><br><br>
+      用户阅读一段材料，用自己的话复述核心意思。
+    </td>
+    <td align="center" width="33%">
+      <strong>2. Diagnose One Issue</strong><br><br>
+      <img src="assets/screenshots/02-concept-intervention.jpg" alt="Concept intervention screen" width="220"><br><br>
+      系统只选择当前最值得训练的一个问题，不一次返回问题清单。
+    </td>
+    <td align="center" width="33%">
+      <strong>3. Targeted Retry</strong><br><br>
+      <img src="assets/screenshots/03-targeted-retry.jpg" alt="Targeted retry screen" width="220"><br><br>
+      局部表达问题只重说目标句，不要求整篇重来。
+    </td>
+  </tr>
+</table>
 
-The repository does not currently include approved product screenshots. The intended preview set is documented in [`assets/screenshots/README.md`](assets/screenshots/README.md):
-
-- Reading material
-- Missing intervention
-- Concept intervention
-- Targeted sentence retry
-- Progress result
-
-No mock screenshots are presented as real product evidence.
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <strong>4. Verify Improvement</strong><br><br>
+      <img src="assets/screenshots/04-successful-progress.jpg" alt="Successful progress result screen" width="220"><br><br>
+      第二次表达后验证原训练目标是否真的改善，而不是重新给一个总分。
+    </td>
+    <td align="center" width="50%">
+      <strong>5. Partial Improvement</strong><br><br>
+      <img src="assets/screenshots/05-partial-improvement.jpg" alt="Partial improvement result screen" width="220"><br><br>
+      即使原问题已修正，如果整体任务仍未完成，也不会直接判成功。
+    </td>
+  </tr>
+</table>
 
 ## Why SpeakNext
 
-Many speaking products return a total score, list several problems at once, or ask the user to “say it better” without making the next action clear. A second attempt is often scored again without checking whether the original problem was actually solved.
+Many AI speaking products stop at evaluation: they assign a score, list several problems, or ask the user to “say it better.”
 
-SpeakNext uses five product principles:
+SpeakNext instead turns diagnosis into a training loop:
 
-- train one issue at a time;
-- do not manufacture a problem when the core task is already complete;
-- provide the smallest useful intervention;
-- let the user produce the improved expression;
-- verify the original target after retrying.
+**Diagnose one issue → give the smallest useful intervention → let the user retry → verify whether that original issue improved.**
 
-## Product Loop
+The product follows five principles:
+
+- one issue at a time;
+- no forced intervention when the task is already complete;
+- the smallest useful hint;
+- the user produces the improved expression;
+- the original target must be verified after retry.
+
+## How It Works
 
 ```mermaid
 flowchart TD
-    A[READING] --> B[FIRST RECORDING]
-    B --> C[ASR]
-    C --> D[AI Evaluation]
-    D --> E[Training Router]
-    E --> F[ONE Training Target]
-    F --> G[Micro Intervention]
-    G --> H[Retry]
-    H --> I[Progress Evaluation]
-    I --> J[Result]
-    J --> K[Anonymous Analytics]
+    A[Reading Material] --> B[First Retelling]
+    B --> C[Tencent ASR]
+    C --> D[Transcript]
+    D --> E[ONE DeepSeek Evaluation]
+    E --> F[Training Router]
+    F --> G{Primary Result}
+    G -->|PASS| M[Result]
+    G -->|Needs training| H[ONE Training Target]
+    H --> I[Micro Intervention]
+    I --> J[Retry]
+    J --> K[Same Evaluator]
+    K --> L[Progress Resolver]
+    L --> M
+    M --> N[Anonymous Analytics]
 ```
 
-A first-round PASS goes directly to Result. Other production targets receive at most one retry, so one training session contains no more than two recordings.
+A first-round `PASS` goes directly to Result without an intervention. Every other production target receives at most one retry, so a session contains no more than two recordings.
 
 ## AI Diagnosis Architecture
 
-Content, Concept, and Expression are diagnostic layers inside **one DeepSeek evaluation request per round**. They are not three separate model calls.
+Content and Expression are evaluated together in **ONE DeepSeek structured evaluation request per round**. Their vertical order below represents product decision priority, not multiple model calls.
 
 ```mermaid
 flowchart TD
-    A[Transcript + Material] --> B[One DeepSeek Structured Evaluation]
-    B --> C[Content Layer]
-    B --> D[Concept Inaccuracy]
-    B --> E[Expression Layer]
-    C --> F[Grounded Normalization]
-    D --> F
-    E --> F
-    F --> G[Training Router]
-    G --> H[ONE Primary Training Need]
+    A[User Retelling] --> B[ONE DeepSeek Structured Evaluation Request]
+    B --> C[1. Content Layer<br/>Is the meaning correct?]
+    C --> D[2. Expression Layer<br/>If correct, is it expressed clearly?]
+    D --> E[Training Router]
+    E --> F[ONE Highest-priority Training Need]
+    F --> G[Intervention]
+    G --> H[Retry]
+    H --> I[Progress Resolver]
 ```
 
-Current production taxonomy:
+The vertical layer order represents decision priority, not separate model calls. Content and Expression outputs are produced within the same DeepSeek evaluation request.
 
-- `PASS`
-- `MISSING_CAUSAL_STEP`
-- `CONCEPT_INACCURACY`
-- `WORDING_PRECISION`
-- `FORMULATION_BREAKDOWN`
-- `UNCERTAIN`
+### Content Layer — Is the meaning correct?
 
-`INFORMATION_ORDER` and `LEXICAL_RETRIEVAL` remain in legacy and compatibility paths, but are not part of the current Information Reconstruction production routing taxonomy.
+The Content Layer checks whether the user actually reconstructed the core meaning:
 
-Grounded normalization requires user evidence to come from the transcript and material references to come from the configured material. The Router then selects one target rather than returning a list of issues.
+- `MISSING_CAUSAL_STEP` — key content or a required causal step is missing;
+- `CONCEPT_INACCURACY` — the central concept is expressed inaccurately;
+- incorrect causal or semantic relations — key ideas are connected in the wrong way;
+- `UNCERTAIN` — current evidence is insufficient for a reliable judgment.
+
+Concept inaccuracy belongs to the Content Layer; it is not a separate peer layer.
+
+### Expression Layer — If the meaning is correct, is it expressed clearly?
+
+The Expression Layer only becomes the training focus after the meaning is sufficiently correct:
+
+- `WORDING_PRECISION` — the understanding is correct, but a local phrase is vague or imprecise;
+- `FORMULATION_BREAKDOWN` — the user knows what to express, but the sentence is visibly incomplete or breaks down;
+- `NONE` — no expression-level intervention is needed.
+
+It does not score fillers, general fluency, or stylistic polish.
+
+### Training Router
+
+The same structured evaluation can produce multiple diagnostic candidates, but the **Training Router only selects ONE primary training need**. SpeakNext does not show every detected issue to the user; one round trains one problem.
+
+No intervention is created when the routed result is `PASS`.
 
 ## Retry Scope
+
+Not every problem requires the user to repeat the whole material.
 
 | Scope | Training needs | User action |
 | --- | --- | --- |
@@ -90,38 +138,46 @@ Grounded normalization requires user evidence to come from the transcript and ma
 | `TARGET_EXPRESSION` | `WORDING_PRECISION`, `FORMULATION_BREAKDOWN` | Retry only the target sentence |
 | No retry | `PASS` | Go directly to Result |
 
-Wording and formulation interventions do not require the user to repeat the whole material.
-
 ## Progress Evaluation
 
-The Progress Resolver does not simply assign another score. It asks:
+The second attempt is not simply scored again.
 
-> Did the specific issue selected in the first round actually improve?
+Progress Resolver asks:
 
-Examples of the resulting safeguards:
+> Did the original training target actually improve?
 
-- a natural wording paraphrase can resolve `WORDING_PRECISION`;
-- a completed target sentence can resolve `FORMULATION_BREAKDOWN`;
-- Concept distinguishes still wrong, corrected, and corrected-but-incomplete;
-- removing the target content does not count as improvement;
-- for `UNCERTAIN`, becoming evaluable does not mean the user has improved—the second round must reach an acceptable completed state.
+Representative safeguards:
+
+1. **Wording:** a natural, more precise reformulation can resolve `WORDING_PRECISION`.
+2. **Concept:** the concept can be corrected while other core content remains missing—so the original issue improved, but the round is still incomplete.
+3. **Uncertain:** if the second attempt changes from “cannot judge” to a clear Missing diagnosis, the target is **not** resolved.
+
+**Model became evaluable ≠ user improved.**
 
 ## Real-user Iteration
 
-Two exploratory real-user rounds were completed with anonymous participants U01–U10. Findings led to grounded feedback compression, missing-target questions, targeted sentence retry, target-retention checks, Concept feedback closure, Missing target alignment, and stricter UNCERTAIN progress semantics.
+SpeakNext has completed two exploratory rounds of real-user testing (U01–U10).
 
-This is qualitative product discovery, not a claim of real-world model accuracy. See [`docs/user-testing.md`](docs/user-testing.md).
+Representative findings:
+
+- local expression problems should not require full retelling;
+- users need to know exactly what content is missing;
+- grounded user evidence must survive the diagnosis → Router → UI chain;
+- a confusing hint can originate from a wrong diagnosis target, not only bad copy;
+- “the model can now judge the answer” does not mean “the user improved.”
+
+This was qualitative product discovery, not an effectiveness experiment or a claim of real-world model accuracy. See [Real-user testing](docs/user-testing.md).
 
 ## Evaluation Approach
 
-The repository separates:
+The repository separates four kinds of evidence:
 
-- deterministic and mocked regression tests;
-- structured evaluation fixtures;
-- real-device validation;
-- qualitative real-user validation.
+- deterministic regression tests for contracts and invariants;
+- mocked evaluation for structured model outputs and edge cases;
+- real-device validation of the complete Mini Program flow;
+- qualitative real-user validation of product behavior and comprehension.
 
-All current deterministic regression suites pass. These checks protect known invariants; they are not a substitute for representative human-labeled accuracy evaluation. See [`docs/evaluation-framework.md`](docs/evaluation-framework.md).
+All current deterministic regression suites pass. This does not imply 100% model accuracy or representative real-world performance. See the [Evaluation framework](docs/evaluation-framework.md).
 
 ## Tech Stack
 
@@ -147,20 +203,10 @@ All current deterministic regression suites pass. These checks protect known inv
 ├─ pages/                          # Mini Program pages
 ├─ test/                           # Mini Program regression tests
 ├─ utils/                          # Stores, service adapters, presenters and analytics client
-├─ assets/screenshots/             # Screenshot plan; no fabricated screenshots
+├─ assets/screenshots/             # Real product screenshots used in this README
 ├─ app.js / app.json / app.wxss
 └─ CHANGELOG.md
 ```
-
-## Local Setup
-
-1. Import the repository into WeChat Developer Tools.
-2. Select or configure a CloudBase environment.
-3. Configure cloud-function environment variables from [`.env.example`](.env.example); do not commit actual values.
-4. Deploy `analyzeSpeech` and `trackRetellingEvent` with cloud dependencies installed.
-5. Compile and test on a real device with microphone permission.
-
-Cloud credentials belong in the cloud-function environment, never in Mini Program source code.
 
 ## Documentation
 
@@ -174,9 +220,19 @@ Cloud credentials belong in the cloud-function environment, never in Mini Progra
 - [Roadmap](docs/roadmap.md)
 - [Changelog](CHANGELOG.md)
 
+## Local Setup
+
+1. Import the repository into WeChat Developer Tools.
+2. Select or configure a CloudBase environment.
+3. Configure cloud-function environment variables from [`.env.example`](.env.example); do not commit actual values.
+4. Deploy `analyzeSpeech` and `trackRetellingEvent` with cloud dependencies installed.
+5. Compile and test on a real device with microphone permission.
+
+Cloud credentials belong in the cloud-function environment, never in Mini Program source code.
+
 ## Current Scope
 
-V0.5.10.3 is the stable Information Reconstruction baseline. V0.6 Structured / Logical Expression and V0.7 Adaptive Coach Agent are roadmap items, not current production capabilities. There is no production Agent or multi-model routing architecture in this version.
+V0.5.10.3 is the stable Information Reconstruction baseline. Structured / Logical Expression and an Adaptive Coach Agent remain roadmap ideas, not current production capabilities. This version does not use a production Agent or multi-model routing architecture.
 
 ## License
 
