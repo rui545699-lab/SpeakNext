@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/recording/index",
+    "pages/processing/index",
+    "pages/insight/index",
+    "pages/intervention/index",
+    "pages/micro-result/index",
+    "pages/session-summary/index",
+    "pages/retelling/index",
+    "pages/profile/index"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundColor": "#f6f6f4",
+    "backgroundTextStyle": "dark"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

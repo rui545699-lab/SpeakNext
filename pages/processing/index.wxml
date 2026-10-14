@@ -1,0 +1,24 @@
+<app-header title="练一下" action="back" bind:back="requestExit" />
+<view class="page-shell processing">
+  <block wx:if="{{!failed}}">
+    <block wx:if="{{!asrComplete}}">
+      <view class="processing__pulse">
+        <view class="processing__dot"></view>
+        <view class="processing__dot"></view>
+        <view class="processing__dot"></view>
+      </view>
+      <text class="processing__title">我在听你刚才是怎么说这段话的……</text>
+      <text class="processing__step">{{stage == 'UPLOADING' ? '正在准备这段录音…' : '正在看看哪里卡了一下…'}}</text>
+    </block>
+    <block wx:else>
+      <text class="processing__title">这次录音已经完成转写。</text>
+      <text wx:if="{{development}}" class="processing__step">可在开发者工具 Console 查看本次 ASR 调试结果。</text>
+      <view class="processing__retry"><primary-button label="完成" bind:tap="finishAsrTest" /></view>
+    </block>
+  </block>
+  <block wx:else>
+    <text class="processing__title">{{errorTitle}}</text>
+    <text class="processing__step">{{errorDetail}}</text>
+    <view class="processing__retry"><primary-button label="再说一次" bind:tap="retryRecording" /></view>
+  </block>
+</view>

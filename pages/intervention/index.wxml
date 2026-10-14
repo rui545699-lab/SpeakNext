@@ -1,0 +1,12 @@
+<app-header title="练一下" action="back" bind:back="handleBack" />
+<view class="page-shell intervention">
+  <intervention-renderer
+    id="interventionRenderer"
+    plan="{{plan}}"
+    action-state="{{actionState}}"
+    error-message="{{errorMessage}}"
+    bind:anchorselect="handleAnchorSelect"
+    bind:recorded="handleRecorded"
+    bind:retry="handleRetry"
+  />
+</view>

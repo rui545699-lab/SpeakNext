@@ -1,0 +1,38 @@
+.recorder {
+  text-align: center;
+}
+
+.wave {
+  display: flex;
+  height: 160rpx;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+}
+
+.wave__bar {
+  width: 8rpx;
+  border-radius: 8rpx;
+  background: #777;
+  transition: height 240ms ease;
+}
+
+.recorder__time {
+  display: block;
+  margin-top: 20rpx;
+  font-size: 48rpx;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 3rpx;
+}
+
+.recorder__action {
+  margin-top: 64rpx;
+}
+
+.recorder__hint {
+  display: block;
+  margin-top: 24rpx;
+  color: #797974;
+  font-size: 25rpx;
+  line-height: 1.6;
+}

@@ -1,0 +1,160 @@
+.renderer {
+  padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
+}
+
+.renderer__original-question {
+  margin-bottom: 30rpx;
+  padding: 22rpx 24rpx;
+  border-radius: 18rpx;
+  background: #eeeeeb;
+}
+
+.renderer__original-label,
+.renderer__original-text {
+  display: block;
+}
+
+.renderer__original-label {
+  margin-bottom: 8rpx;
+  color: #8a8a84;
+  font-size: 23rpx;
+}
+
+.renderer__original-text {
+  color: #666661;
+  font-size: 27rpx;
+  line-height: 1.55;
+}
+
+.renderer__title,
+.renderer__question,
+.renderer__eyebrow,
+.renderer__path,
+.renderer__gentle {
+  display: block;
+}
+
+.renderer__question-line {
+  display: block;
+}
+
+.renderer__title {
+  font-size: 42rpx;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.renderer__question {
+  margin: 40rpx 0 28rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.renderer__eyebrow,
+.renderer__path {
+  color: #777772;
+  font-size: 26rpx;
+}
+
+.renderer__context {
+  margin: 24rpx 0 0;
+  padding: 24rpx;
+  border-radius: 18rpx;
+  background: #f1f1ed;
+  color: #4d4d49;
+  font-size: 28rpx;
+  line-height: 1.65;
+}
+
+.renderer__quote {
+  margin: 24rpx 0 36rpx;
+  padding: 28rpx;
+  border-radius: 20rpx;
+  background: #ededE9;
+  color: #41413f;
+  font-size: 30rpx;
+  line-height: 1.65;
+}
+
+.renderer__expand-panel {
+  min-height: 300rpx;
+  padding: 32rpx 28rpx;
+  border: 1rpx solid #deded9;
+  border-radius: 24rpx;
+  background: #fff;
+}
+
+.renderer__inline-loading {
+  display: flex;
+  min-height: 96rpx;
+  align-items: center;
+  justify-content: center;
+}
+
+.renderer__loading-dot {
+  width: 16rpx;
+  height: 16rpx;
+  margin-right: 18rpx;
+  border-radius: 50%;
+  background: #666661;
+}
+
+.renderer__inline-status {
+  color: #41413f;
+  font-size: 28rpx;
+}
+
+.renderer__options {
+  margin-top: 8rpx;
+}
+
+.renderer__skip {
+  margin-top: 16rpx;
+  padding: 24rpx;
+  background: transparent;
+  color: #73736f;
+  font-size: 28rpx;
+}
+
+.renderer__center-hint {
+  display: block;
+  margin-top: 22rpx;
+  color: #73736f;
+  font-size: 26rpx;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.renderer__none {
+  width: 100%;
+  height: 78rpx;
+  margin-top: 8rpx;
+  padding: 0;
+  background: transparent;
+  color: #666661;
+  font-size: 28rpx;
+  line-height: 78rpx;
+}
+
+.renderer__choice {
+  display: block;
+  margin-top: 40rpx;
+  font-size: 64rpx;
+  font-weight: 650;
+}
+
+.renderer__gentle {
+  margin: -8rpx 0 40rpx;
+  color: #777772;
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+
+.renderer__gentle--inline {
+  margin-top: 0;
+}
+
+.renderer__button-space {
+  margin-top: 36rpx;
+}

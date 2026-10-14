@@ -1,0 +1,31 @@
+.insight {
+  padding-top: 52rpx;
+}
+
+.insight__practice {
+  margin-top: 28rpx;
+  padding: 32rpx;
+  border: 2rpx solid #e1e1dc;
+  border-radius: 28rpx;
+  background: #fff;
+}
+
+.insight__loading,
+.insight__retry {
+  display: flex;
+  min-height: 180rpx;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28rpx;
+  color: #686864;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.insight__loading-dot {
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  background: #33332f;
+}

@@ -1,0 +1,30 @@
+.summary__card {
+  margin-top: 52rpx;
+}
+
+.summary__list {
+  margin-top: 28rpx;
+}
+
+.summary__item {
+  display: flex;
+  margin-top: 20rpx;
+  color: #444441;
+  font-size: 29rpx;
+  line-height: 1.65;
+}
+
+.summary__bullet {
+  margin-right: 16rpx;
+  color: #888;
+}
+
+.summary__uncertain {
+  display: block;
+  margin-top: 38rpx;
+  padding-top: 30rpx;
+  border-top: 2rpx solid #ecece8;
+  color: #777772;
+  font-size: 26rpx;
+  line-height: 1.7;
+}

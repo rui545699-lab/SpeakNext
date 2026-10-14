@@ -1,0 +1,8 @@
+<view class="header" style="padding-top: {{statusBarHeight}}px;">
+  <view class="header__content" style="height: {{navContentHeight}}px;">
+    <button wx:if="{{action == 'back'}}" class="header__action" bindtap="handleAction" aria-label="返回">
+      <text class="header__action-icon">‹</text>
+    </button>
+    <text class="header__title" style="left: {{rightSafeWidth}}px; right: {{rightSafeWidth}}px;" bindlongpress="handleTitleLongPress">{{title}}</text>
+  </view>
+</view>

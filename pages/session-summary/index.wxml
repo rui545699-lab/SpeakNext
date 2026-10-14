@@ -1,0 +1,17 @@
+<app-header title="本次训练" />
+<view class="page-shell summary">
+  <text class="page-title">今天练到这里就够了。</text>
+  <view class="card summary__card">
+    <text class="section-title">这次我注意到：</text>
+    <view class="summary__list">
+      <view wx:for="{{observations}}" wx:key="*this" class="summary__item">
+        <text class="summary__bullet">·</text>
+        <text>{{item}}</text>
+      </view>
+    </view>
+    <text class="summary__uncertain">我还需要再听几次，才会更确定。</text>
+  </view>
+  <view class="action-zone">
+    <primary-button label="完成" bind:tap="complete" />
+  </view>
+</view>

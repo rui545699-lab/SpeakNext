@@ -1,0 +1,18 @@
+<view class="result-card">
+  <text wx:if="{{result.interventionType == 'ONE_DETAIL'}}" class="result-card__title">你把缺的那部分补上了。</text>
+  <text wx:elif="{{result.interventionType == 'NARROW_SCOPE'}}" class="result-card__title">现在有一个清楚的开头了。</text>
+  <text wx:elif="{{result.interventionType == 'SEMANTIC_CONTRAST'}}" class="result-card__title">你换了一种说法继续表达。</text>
+  <text wx:elif="{{result.interventionType == 'CHOOSE_FIRST_MESSAGE'}}" class="result-card__title">你已经选好了先说哪一条。</text>
+  <text wx:else class="result-card__title">这次练习完成了。</text>
+  <view class="result-card__change">
+    <text class="result-card__label">原来</text>
+    <text class="result-card__change-text">{{result.beforeText}}</text>
+    <text class="result-card__label">现在</text>
+    <text class="result-card__change-text">{{result.afterText}}</text>
+  </view>
+
+  <text wx:if="{{result.interventionType == 'ONE_DETAIL'}}" class="result-card__insight">现在原题需要的信息更完整了。</text>
+  <text wx:elif="{{result.interventionType == 'NARROW_SCOPE'}}" class="result-card__insight">你从具体对象开始，也把它带回原题说清楚了。</text>
+  <text wx:elif="{{result.interventionType == 'SEMANTIC_CONTRAST'}}" class="result-card__insight">你没有停在那个词上，而是用自己的说法继续了下去。</text>
+  <text wx:elif="{{result.interventionType == 'CHOOSE_FIRST_MESSAGE'}}" class="result-card__insight">先确定第一条信息后，表达更容易继续。</text>
+</view>

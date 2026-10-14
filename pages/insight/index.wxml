@@ -1,0 +1,31 @@
+<app-header title="练一下" action="back" />
+<view class="page-shell insight">
+  <insight-card
+    diagnosis="{{diagnosis}}"
+    insight-copy="{{insightCopy}}"
+    question="{{question}}"
+    inline-active="{{inlineIntervention}}"
+    bind:primary="handlePrimary"
+    bind:secondary="handleSecondary"
+  />
+
+  <view wx:if="{{inlineIntervention}}" class="insight__practice">
+    <voice-recorder
+      wx:if="{{inlineState == 'RECORDING'}}"
+      mode="short"
+      max-seconds="30"
+      hint="说完后点“说完了”，最长 30 秒。"
+      button-label="说完了"
+      bind:complete="handleInlineRecorded"
+      bind:error="handleInlineRecordError"
+    />
+    <view wx:elif="{{inlineState == 'CHECKING'}}" class="insight__loading">
+      <view class="insight__loading-dot"></view>
+      <text>正在听刚才这句话…</text>
+    </view>
+    <view wx:else class="insight__retry">
+      <text>{{inlineError}}</text>
+      <primary-button label="重新录音" bind:tap="handleInlineRetry" />
+    </view>
+  </view>
+</view>

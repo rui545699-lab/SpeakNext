@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "app-header": "/components/app-header/index",
+    "question-card": "/components/question-card/index",
+    "primary-button": "/components/primary-button/index",
+    "bottom-nav": "/components/bottom-nav/index"
+  }
+}

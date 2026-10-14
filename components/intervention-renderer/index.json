@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "option-card": "/components/option-card/index",
+    "primary-button": "/components/primary-button/index",
+    "voice-recorder": "/components/voice-recorder/index"
+  }
+}

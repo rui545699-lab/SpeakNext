@@ -1,0 +1,192 @@
+<app-header title="信息重构" action="back" bind:back="backHome" />
+<view class="page-shell retelling">
+  <block wx:if="{{phase == 'READING'}}">
+    <view class="retelling-state retelling-state--long">
+      <text class="eyebrow">先读一段材料</text>
+      <text class="page-title">{{material.title}}</text>
+      <view class="material-card"><text>{{material.text}}</text></view>
+      <text class="retelling__instruction">读完后请用自己的话完整复述，不需要逐句背诵。</text>
+      <view class="retelling__action"><primary-button label="读完了，开始复述" bind:tap="startFirstRecording" /></view>
+      <button class="text-button retelling__switch" bindtap="switchMaterial">换一篇</button>
+    </view>
+  </block>
+
+  <block wx:if="{{phase == 'FIRST_RECORDING' || phase == 'SECOND_RECORDING'}}">
+    <view class="retelling-state retelling-state--short">
+      <view class="short-state-body">
+        <view class="short-state-content recording-group">
+          <text class="eyebrow">{{phase == 'FIRST_RECORDING' ? '第一次复述' : secondRecordingEyebrow}}</text>
+          <text class="page-title">{{phase == 'FIRST_RECORDING' ? '用自己的话把主要意思说清楚' : secondRecordingTitle}}</text>
+          <text class="retelling__context">{{material.title}}</text>
+          <voice-recorder id="retellingRecorder" class="retelling__recorder" mode="long" maxSeconds="60" buttonLabel="说完了" hint="{{phase == 'FIRST_RECORDING' ? '完整复述即可，不需要逐句背诵。' : secondRecordingHint}}" bind:complete="handleRecordingComplete" bind:error="handleRecordingError" />
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{phase == 'FIRST_PROCESSING' || phase == 'SECOND_PROCESSING'}}">
+    <view class="retelling-state retelling-state--short">
+      <view class="short-state-body">
+        <view class="short-state-content processing-card">
+          <view class="processing-dot"></view>
+          <text class="page-title">{{processingLabel}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{phase == 'MICRO_HINT'}}">
+    <view class="retelling-state retelling-state--short">
+      <view class="short-state-body">
+        <view class="short-state-content hint-group">
+          <text class="eyebrow">{{hintEyebrow}}</text>
+          <text class="page-title">{{hintTitle}}</text>
+          <text class="page-subtitle">{{hintDescription}}</text>
+          <block wx:if="{{originalTrainingNeed == 'CONCEPT_INACCURACY'}}">
+            <view class="evidence-card">
+              <block wx:if="{{conceptTarget.userEvidence.text}}">
+                <text class="evidence-card__label">你刚才说</text>
+                <text>“{{conceptTarget.userEvidence.text}}”</text>
+              </block>
+              <block wx:if="{{conceptReferenceText}}">
+                <view class="result-card__divider" wx:if="{{conceptTarget.userEvidence.text}}"></view>
+                <text class="evidence-card__label">关键意思</text>
+                <text>“{{conceptReferenceText}}”</text>
+              </block>
+            </view>
+          </block>
+          <block wx:elif="{{originalTrainingNeed == 'WORDING_PRECISION'}}">
+            <view class="evidence-card">
+              <text class="evidence-card__label">你刚才说</text>
+              <text>“{{expressionTarget.userEvidence.text}}”</text>
+              <block wx:if="{{wordingReferenceText}}">
+                <view class="result-card__divider"></view>
+                <text class="evidence-card__label">关键意思</text>
+                <text>“{{wordingReferenceText}}”</text>
+              </block>
+            </view>
+          </block>
+          <block wx:elif="{{originalTrainingNeed == 'FORMULATION_BREAKDOWN'}}">
+            <view class="evidence-card">
+              <text class="evidence-card__label">刚才这句</text>
+              <text>“{{expressionTarget.userEvidence.text}}”</text>
+              <block wx:if="{{expressionCueText}}">
+                <view class="result-card__divider"></view>
+                <text class="evidence-card__label">提示</text>
+                <text>“{{expressionCueText}}”</text>
+              </block>
+            </view>
+          </block>
+          <block wx:elif="{{originalTrainingNeed == 'MISSING_CAUSAL_STEP'}}">
+            <view class="evidence-card" wx:if="{{missingHintQuestion}}">
+              <text class="evidence-card__label">想一想</text>
+              <text>{{missingHintQuestion}}</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="evidence-card" wx:if="{{firstRoundResult.routedResult.evidence.length}}">
+              <text class="evidence-card__label">刚才的表达</text>
+              <text>“{{firstRoundResult.routedResult.evidence[0].text}}”</text>
+            </view>
+          </block>
+          <view class="short-state-action"><primary-button label="{{hintButtonText}}" bind:tap="startSecondRecording" /></view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{phase == 'RESULT'}}">
+    <view class="retelling-state {{compactResult ? 'retelling-state--short' : 'retelling-state--long'}}">
+      <view class="{{compactResult ? 'short-state-body' : 'result-body'}}">
+        <view class="{{compactResult ? 'short-state-content compact-result' : 'long-result'}}">
+          <text class="eyebrow" wx:if="{{showResultEyebrow}}">本轮完成</text>
+          <text class="page-title">{{resultTitle}}</text>
+          <text class="page-subtitle" wx:if="{{resultAssist}}">{{resultAssist}}</text>
+          <view class="evidence-card" wx:if="{{resultReferenceText}}">
+            <text class="evidence-card__label">关键意思</text>
+            <text>“{{resultReferenceText}}”</text>
+          </view>
+          <block wx:if="{{resultPresentation.showChange}}">
+            <text class="result-section-title">这次的变化</text>
+            <view class="change-card">
+              <text class="change-card__label">第一次</text>
+              <view class="change-card__sequence">
+                <block wx:for="{{resultPresentation.beforeItems}}" wx:key="text">
+                  <text class="change-card__item">{{item.text}}</text>
+                  <text class="change-card__arrow" wx:if="{{!item.last}}">↓</text>
+                </block>
+              </view>
+              <view class="change-card__transition">↓</view>
+              <text class="change-card__label">第二次</text>
+              <view class="change-card__sequence">
+                <block wx:for="{{resultPresentation.afterItems}}" wx:key="text">
+                  <text class="change-card__item">{{item.text}}</text>
+                  <text class="change-card__arrow" wx:if="{{!item.last}}">↓</text>
+                </block>
+              </view>
+            </view>
+            <text class="change-summary">{{resultPresentation.summary}}</text>
+          </block>
+          <view class="result-explanation" wx:if="{{resultExplanation}}">
+            <text>{{resultExplanation}}</text>
+            <view class="evidence-card" wx:if="{{showUnresolvedConceptFeedback}}">
+              <text class="evidence-card__label">你第二次还说</text>
+              <text>“{{unresolvedConceptUserEvidence}}”</text>
+              <view class="result-card__divider"></view>
+              <text class="evidence-card__label">关键意思</text>
+              <text>“{{unresolvedMaterialEvidence}}”</text>
+            </view>
+            <block wx:else>
+              <text class="expression-reference" wx:if="{{unresolvedMaterialEvidence}}">{{unresolvedMaterialLabel}}：“{{unresolvedMaterialEvidence}}”</text>
+            </block>
+            <view class="result-structure" wx:if="{{showMissingStructure}}">
+              <text class="evidence-card__label" wx:if="{{resultStructureLabel}}">{{resultStructureLabel}}</text>
+              <block wx:for="{{missingStructureItems}}" wx:key="keyPointId">
+                <text>{{item.text}}</text>
+                <text wx:if="{{!item.last}}">↓</text>
+              </block>
+            </view>
+            <view class="result-structure" wx:if="{{showConceptIncompleteStructure}}">
+              <block wx:for="{{conceptIncompleteStructureItems}}" wx:key="keyPointId">
+                <text>{{item.text}}</text>
+                <text wx:if="{{!item.last}}">↓</text>
+              </block>
+            </view>
+          </view>
+          <block wx:if="{{showTranscriptResult}}">
+            <text class="result-section-title" wx:if="{{secondTranscript}}">你的两次表达</text>
+            <text class="result-section-title" wx:else>你的表达</text>
+            <view class="result-card">
+              <text class="result-card__label">第一次</text>
+              <text>{{firstTranscript}}</text>
+              <block wx:if="{{secondTranscript}}">
+                <view class="result-card__divider"></view>
+                <text class="result-card__label">第二次</text>
+                <text>{{secondTranscript}}</text>
+              </block>
+            </view>
+          </block>
+          <view class="result-actions">
+            <block wx:if="{{showRetryActions}}">
+              <primary-button label="再练一次" bind:tap="restartTraining" />
+              <button class="text-button retelling__finish" bindtap="finishSession">完成本轮</button>
+            </block>
+            <primary-button wx:else label="完成" bind:tap="finishSession" />
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{phase == 'ERROR'}}">
+    <view class="retelling-state retelling-state--short">
+      <view class="short-state-body">
+        <view class="short-state-content">
+          <text class="eyebrow">没有完成</text>
+          <text class="page-title">{{errorMessage}}</text>
+          <view class="short-state-action"><primary-button label="重新录音" bind:tap="retryRecording" /></view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

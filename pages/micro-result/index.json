@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "app-header": "/components/app-header/index",
+    "micro-result": "/components/micro-result/index",
+    "primary-button": "/components/primary-button/index"
+  }
+}

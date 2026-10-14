@@ -1,0 +1,38 @@
+.nav-safe {
+  position: fixed;
+  z-index: 20;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  border-top: 2rpx solid #e6e6e1;
+  background: #fafaf8;
+}
+
+.nav {
+  display: flex;
+  height: 112rpx;
+}
+
+.nav__item {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  color: #999;
+  font-size: 22rpx;
+  line-height: 1.5;
+}
+
+.nav__mark {
+  font-size: 34rpx;
+  line-height: 1.1;
+}
+
+.nav__item--active {
+  color: #292929;
+  font-weight: 600;
+}

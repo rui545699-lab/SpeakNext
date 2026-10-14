@@ -1,0 +1,8 @@
+.result-page {
+  padding-top: 44rpx;
+}
+
+.result-page__end {
+  width: 100%;
+  margin-top: 14rpx;
+}

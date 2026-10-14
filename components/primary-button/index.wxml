@@ -1,0 +1,3 @@
+<button class="primary {{disabled ? 'primary--disabled' : ''}}" disabled="{{disabled}}" bindtap="handleTap">
+  <text class="primary__text">{{label}}</text>
+</button>

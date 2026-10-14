@@ -1,0 +1,106 @@
+.profile__caption {
+  display: block;
+  margin-top: 8rpx;
+  color: #777772;
+  font-size: 25rpx;
+}
+
+.profile__module {
+  margin-top: 32rpx;
+}
+
+.profile__empty {
+  padding-top: 42rpx;
+  padding-bottom: 42rpx;
+}
+
+.profile__empty-copy {
+  display: block;
+  margin-top: 22rpx;
+  color: #777772;
+  font-size: 27rpx;
+  line-height: 1.75;
+}
+
+.profile__observation {
+  margin-top: 30rpx;
+}
+
+.profile__observation--divider {
+  padding-top: 26rpx;
+  border-top: 2rpx solid #eeeeea;
+}
+
+.profile__tag,
+.profile__value,
+.profile__meta,
+.profile__module-note,
+.profile__session-time,
+.profile__session-label {
+  display: block;
+}
+
+.profile__tag {
+  color: #777772;
+  font-size: 24rpx;
+}
+
+.profile__value {
+  margin-top: 8rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.profile__meta {
+  margin-top: 6rpx;
+  color: #8a8a85;
+  font-size: 24rpx;
+}
+
+.profile__module-note {
+  margin-top: 12rpx;
+  color: #858580;
+  font-size: 24rpx;
+  line-height: 1.55;
+}
+
+.profile__method {
+  display: flex;
+  align-items: center;
+  margin-top: 28rpx;
+  font-size: 29rpx;
+}
+
+.profile__method--soft {
+  color: #777772;
+}
+
+.profile__method-mark {
+  width: 52rpx;
+  color: #555;
+}
+
+.profile__session {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 28rpx;
+  padding-top: 26rpx;
+  border-top: 2rpx solid #eeeeea;
+}
+
+.profile__session-time {
+  color: #858580;
+  font-size: 23rpx;
+}
+
+.profile__session-label {
+  margin-top: 6rpx;
+  font-size: 29rpx;
+  font-weight: 550;
+}
+
+.profile__session-arrow {
+  color: #aaa;
+  font-size: 42rpx;
+}

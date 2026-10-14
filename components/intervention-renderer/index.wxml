@@ -1,0 +1,45 @@
+<view class="renderer">
+  <view wx:if="{{plan.originalQuestion}}" class="renderer__original-question">
+    <text class="renderer__original-label">原题</text>
+    <text class="renderer__original-text">{{plan.originalQuestion}}</text>
+  </view>
+  <text class="renderer__eyebrow">这次只做这一小步</text>
+  <view wx:if="{{plan.contextText}}" class="renderer__context">“{{plan.contextText}}”</view>
+  <text class="renderer__question">{{plan.prompt}}</text>
+
+  <view class="renderer__expand-panel">
+    <block wx:if="{{actionState == 'BOOTSTRAP'}}"></block>
+
+    <view wx:elif="{{actionState == 'SELECTING'}}" class="renderer__options">
+      <option-card
+        wx:for="{{plan.options}}"
+        wx:key="*this"
+        value="{{item}}"
+        title="{{item}}"
+        bind:select="selectFallback"
+      />
+    </view>
+
+    <voice-recorder
+      wx:elif="{{actionState == 'RECORDING'}}"
+      mode="short"
+      max-seconds="30"
+      hint="说完后点“说完了”，最长 30 秒。"
+      button-label="说完了"
+      bind:complete="completeRecording"
+      bind:error="failRecording"
+    />
+
+    <block wx:elif="{{actionState == 'CHECKING'}}">
+      <view class="renderer__inline-loading">
+        <view class="renderer__loading-dot"></view>
+        <text class="renderer__inline-status">正在听刚才这句话…</text>
+      </view>
+    </block>
+
+    <block wx:else>
+      <text class="renderer__gentle renderer__gentle--inline">{{errorMessage}}</text>
+      <primary-button label="重新录音" bind:tap="retry" />
+    </block>
+  </view>
+</view>

@@ -1,0 +1,128 @@
+.home {
+  --home-section-gap: 64rpx;
+  padding-top: 48rpx;
+}
+
+.home__subtitle {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 660rpx;
+  margin-top: 0;
+  color: #42423f;
+  font-size: 30rpx;
+  line-height: 1.7;
+}
+
+.home__training-card {
+  margin-top: var(--home-section-gap);
+}
+
+.home__description {
+  margin-top: 22rpx;
+  color: #666662;
+  font-size: 28rpx;
+  line-height: 1.75;
+}
+
+.home__description text {
+  display: block;
+}
+
+.home__return-title {
+  max-width: 620rpx;
+  font-size: 44rpx;
+}
+
+.home__question {
+  margin-top: 56rpx;
+}
+
+.home__action {
+  margin-top: 36rpx;
+}
+
+.home__hint {
+  display: block;
+  margin-top: 22rpx;
+  color: #777772;
+  font-size: 25rpx;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.home__retelling-entry {
+  height: 78rpx;
+  margin-top: 18rpx;
+  border: 1rpx solid #d7d7d2;
+  border-radius: 20rpx;
+  background: transparent;
+  color: #555550;
+  font-size: 26rpx;
+  line-height: 76rpx;
+}
+
+.home__privacy {
+  display: block;
+  margin-top: 8rpx;
+  color: #9a9a95;
+  font-size: 22rpx;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.debug-mask {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.debug-sheet {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 40rpx 32rpx calc(32rpx + env(safe-area-inset-bottom));
+  border-radius: 28rpx 28rpx 0 0;
+  background: #fff;
+}
+
+.debug-sheet__title,
+.debug-sheet__hint {
+  display: block;
+}
+
+.debug-sheet__title {
+  font-size: 34rpx;
+  font-weight: 650;
+}
+
+.debug-sheet__hint {
+  margin: 10rpx 0 26rpx;
+  color: #888;
+  font-size: 24rpx;
+}
+
+.debug-sheet__item,
+.debug-sheet__reset {
+  height: 76rpx;
+  margin-top: 12rpx;
+  border-radius: 18rpx;
+  background: #f1f1ee;
+  color: #333;
+  font-size: 27rpx;
+  line-height: 76rpx;
+}
+
+.debug-sheet__item--active {
+  background: #333;
+  color: #fff;
+}
+
+.debug-sheet__reset {
+  background: transparent;
+  color: #777;
+}

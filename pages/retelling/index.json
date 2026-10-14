@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "app-header": "/components/app-header/index",
+    "primary-button": "/components/primary-button/index",
+    "voice-recorder": "/components/voice-recorder/index"
+  }
+}

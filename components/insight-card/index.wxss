@@ -1,0 +1,88 @@
+.insight-card {
+  box-sizing: border-box;
+  padding: 40rpx 32rpx 32rpx;
+  border: 2rpx solid #e1e1dc;
+  border-radius: 28rpx;
+  background: #fff;
+}
+
+.insight-card__lead,
+.insight-card__body,
+.insight-card__hint,
+.insight-card__action,
+.insight-card__original-label,
+.insight-card__original-text {
+  display: block;
+}
+
+.insight-card__original-question {
+  margin-bottom: 32rpx;
+  padding: 22rpx 24rpx;
+  border-radius: 18rpx;
+  background: #f7f7f4;
+}
+
+.insight-card__original-label {
+  margin-bottom: 8rpx;
+  color: #85857f;
+  font-size: 23rpx;
+}
+
+.insight-card__original-text {
+  color: #666660;
+  font-size: 27rpx;
+  line-height: 1.6;
+}
+
+.insight-card__lead {
+  font-size: 38rpx;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.insight-card__quote {
+  margin: 36rpx 0;
+  padding: 28rpx;
+  border-radius: 20rpx;
+  background: #f3f3f0;
+  color: #4d4d4a;
+  font-size: 30rpx;
+  line-height: 1.7;
+}
+
+.insight-card__body {
+  margin: 20rpx 0 40rpx;
+  color: #454542;
+  font-size: 30rpx;
+  line-height: 1.75;
+}
+
+.insight-card__body--large {
+  margin-top: 42rpx;
+  margin-bottom: 0;
+  font-size: 34rpx;
+  font-weight: 600;
+}
+
+.insight-card__hint {
+  margin: -12rpx 0 44rpx;
+  color: #777772;
+  font-size: 27rpx;
+  line-height: 1.6;
+}
+
+.insight-card__action {
+  margin: -12rpx 0 40rpx;
+  color: #272724;
+  font-size: 31rpx;
+  font-weight: 600;
+  line-height: 1.65;
+}
+
+.insight-card__secondary {
+  margin-top: 18rpx;
+  padding: 24rpx;
+  background: transparent;
+  color: #686864;
+  font-size: 28rpx;
+}

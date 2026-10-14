@@ -1,0 +1,8 @@
+<app-header title="本次训练" action="back" bind:back="closeResult" />
+<view class="page-shell result-page">
+  <micro-result issue-type="{{issueType}}" result="{{result}}" />
+  <view class="action-zone">
+    <primary-button label="同题再说一次" bind:tap="repeatSameQuestion" />
+    <button class="text-button result-page__end" bindtap="changeQuestion">换一道题</button>
+  </view>
+</view>

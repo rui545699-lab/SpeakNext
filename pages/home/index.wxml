@@ -1,0 +1,16 @@
+<app-header title="SpeakNext" />
+<view class="page-shell page-with-nav home">
+  <text class="page-subtitle home__subtitle">练习抓住重点、理清思路，把内容讲清楚。</text>
+  <view class="card home__training-card">
+    <text class="section-title">信息重构</text>
+    <view class="home__description">
+      <text>看完一段内容，</text>
+      <text>用自己的话重新讲清楚。</text>
+    </view>
+    <view class="home__action">
+      <primary-button label="开始练习" bind:tap="startRetelling" />
+    </view>
+  </view>
+</view>
+
+<bottom-nav current="home" />

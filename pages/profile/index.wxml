@@ -1,0 +1,10 @@
+<app-header title="我的表达" />
+<view class="page-shell page-with-nav profile">
+  <text class="profile__caption">已经完成 {{totalRounds}} 轮练习</text>
+
+  <view class="card profile__module profile__empty">
+    <text class="section-title">我还在认识你的表达习惯。</text>
+    <text class="profile__empty-copy">再练几次，这里会慢慢出现你常见的卡点，以及更适合你的训练方式。</text>
+  </view>
+</view>
+<bottom-nav current="profile" />

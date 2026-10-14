@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "app-header": "/components/app-header/index",
+    "insight-card": "/components/insight-card/index",
+    "voice-recorder": "/components/voice-recorder/index",
+    "primary-button": "/components/primary-button/index"
+  }
+}

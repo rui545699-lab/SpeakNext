@@ -1,0 +1,29 @@
+.intervention {
+  padding-top: 44rpx;
+}
+
+.intervention__transcript {
+  display: block;
+  margin-bottom: 32rpx;
+  padding: 24rpx 28rpx;
+  border: 1rpx solid #deded9;
+  border-radius: 20rpx;
+  background: #fff;
+}
+
+.intervention__transcript-label,
+.intervention__transcript-text {
+  display: block;
+}
+
+.intervention__transcript-label {
+  margin-bottom: 10rpx;
+  color: #858580;
+  font-size: 24rpx;
+}
+
+.intervention__transcript-text {
+  color: #31312f;
+  font-size: 28rpx;
+  line-height: 1.65;
+}

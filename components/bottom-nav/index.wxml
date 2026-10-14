@@ -1,0 +1,12 @@
+<view class="nav-safe">
+  <view class="nav">
+    <button class="nav__item {{current == 'home' ? 'nav__item--active' : ''}}" bindtap="goHome">
+      <text class="nav__mark">○</text>
+      <text>首页</text>
+    </button>
+    <button class="nav__item {{current == 'profile' ? 'nav__item--active' : ''}}" bindtap="goProfile">
+      <text class="nav__mark">◇</text>
+      <text>我的</text>
+    </button>
+  </view>
+</view>

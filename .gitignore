@@ -1,0 +1,35 @@
+node_modules/
+cloudfunctions/*/node_modules/
+.env
+.env.*
+!.env.example
+*.secret.json
+eval/results/*.json
+eval/results/*.csv
+project.private.config.json
+
+# IDE, OS and local caches
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.cache/
+*.log
+logs/
+coverage/
+.nyc_output/
+
+# Temporary exports and local test data
+tmp/
+temp/
+exports/
+database-exports/
+user-test-exports/
+recordings/
+audio/
+*.mp3
+*.m4a
+*.wav
+*.aac
+*.pcm
+*.flac

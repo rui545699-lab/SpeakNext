@@ -1,0 +1,5 @@
+<view class="question-card">
+  <text class="question-card__label">今天随便聊聊</text>
+  <text class="question-card__text">{{question.text}}</text>
+  <button class="question-card__change" bindtap="handleChange">换一道</button>
+</view>

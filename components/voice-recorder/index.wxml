@@ -1,0 +1,10 @@
+<view class="recorder">
+  <view class="wave" aria-label="模拟录音声波">
+    <view wx:for="{{levels}}" wx:key="index" class="wave__bar" style="height: {{item}}rpx;"></view>
+  </view>
+  <text class="recorder__time">{{displayTime}}</text>
+  <view class="recorder__action">
+    <primary-button label="{{buttonLabel}}" bind:tap="finish" />
+  </view>
+  <text class="recorder__hint">{{hint || (mode == 'short' ? '只补一句就好。' : '想说多少都可以，不需要撑满20秒。')}}</text>
+</view>

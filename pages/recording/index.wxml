@@ -1,0 +1,29 @@
+<app-header title="练一下" action="back" bind:back="requestExit" />
+<view class="page-shell recording">
+  <block wx:if="{{!processing}}">
+    <text class="page-title">不用想完整，先说。</text>
+    <view class="recording__question">{{question.text}}</view>
+    <view wx:if="{{ready}}" class="recording__ready">
+      <primary-button label="开始说" bind:tap="startRecording" />
+      <text>看完题目后，准备好了再开始。</text>
+      <button class="recording__skip" bindtap="skipQuestion">这题没什么可说的，换一道</button>
+    </view>
+    <view wx:else class="recording__recorder">
+      <voice-recorder bind:start="onRecordStart" bind:complete="onRecordComplete" bind:error="onRecordError" />
+    </view>
+  </block>
+  <view wx:elif="{{!failed}}" class="recording__inline-processing">
+    <view class="recording__pulse">
+      <view class="recording__dot"></view>
+      <view class="recording__dot"></view>
+      <view class="recording__dot"></view>
+    </view>
+    <text class="recording__processing-title">我在听你刚才是怎么说这段话的…</text>
+    <text class="recording__processing-step">{{processingStage == 'UPLOADING' ? '正在准备这段录音…' : '正在看看哪里卡了一下…'}}</text>
+  </view>
+  <view wx:else class="recording__inline-processing">
+    <text class="recording__processing-title">{{errorTitle}}</text>
+    <text class="recording__processing-step">{{errorDetail}}</text>
+    <view class="recording__retry"><primary-button label="再说一次" bind:tap="retryRecording" /></view>
+  </view>
+</view>

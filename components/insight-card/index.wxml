@@ -1,0 +1,15 @@
+<view class="insight-card">
+  <view wx:if="{{question.text}}" class="insight-card__original-question">
+    <text class="insight-card__original-label">原题</text>
+    <text class="insight-card__original-text">{{question.text}}</text>
+  </view>
+  <text class="insight-card__lead">{{insightCopy.lead}}</text>
+  <view wx:if="{{insightCopy.evidenceText}}" class="insight-card__quote">“{{insightCopy.evidenceText}}”</view>
+  <text class="insight-card__body">{{insightCopy.body}}</text>
+  <text wx:if="{{insightCopy.actionPrompt}}" class="insight-card__action">{{insightCopy.actionPrompt}}</text>
+  <text wx:if="{{insightCopy.factorNote}}" class="insight-card__hint">{{insightCopy.factorNote}}</text>
+  <primary-button wx:if="{{!inlineActive}}" label="{{insightCopy.cta}}" bind:tap="handlePrimary" />
+  <block wx:if="{{!inlineActive}}">
+    <button wx:if="{{insightCopy.secondaryCta}}" class="insight-card__secondary" bindtap="handleSecondary">{{insightCopy.secondaryCta}}</button>
+  </block>
+</view>

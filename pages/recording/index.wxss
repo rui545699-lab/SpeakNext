@@ -1,0 +1,80 @@
+.recording__question {
+  margin-top: 34rpx;
+  padding: 28rpx;
+  border-radius: 24rpx;
+  background: #ededE9;
+  color: #4a4a47;
+  font-size: 29rpx;
+  line-height: 1.65;
+}
+
+.recording__recorder {
+  margin-top: 72rpx;
+}
+
+.recording__ready {
+  margin-top: 72rpx;
+  color: #777772;
+  font-size: 26rpx;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.recording__ready text {
+  display: block;
+  margin-top: 22rpx;
+}
+
+.recording__skip {
+  margin-top: 18rpx;
+  padding: 18rpx 12rpx;
+  background: transparent;
+  color: #888882;
+  font-size: 25rpx;
+  font-weight: 400;
+}
+
+.recording__inline-processing {
+  display: flex;
+  min-height: 65vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.recording__pulse {
+  display: flex;
+}
+
+.recording__dot {
+  width: 14rpx;
+  height: 14rpx;
+  margin: 0 7rpx;
+  border-radius: 50%;
+  background: #777;
+}
+
+.recording__processing-title,
+.recording__processing-step {
+  display: block;
+}
+
+.recording__processing-title {
+  max-width: 580rpx;
+  margin-top: 44rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  line-height: 1.65;
+}
+
+.recording__processing-step {
+  margin-top: 18rpx;
+  color: #777772;
+  font-size: 27rpx;
+}
+
+.recording__retry {
+  width: 430rpx;
+  margin-top: 52rpx;
+}
