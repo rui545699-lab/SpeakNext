@@ -211,6 +211,7 @@ All current deterministic regression suites pass. This does not imply 100% model
 ## Documentation
 
 - [Product overview](docs/product-overview.md)
+- [Product Requirements — Information Reconstruction V0.5](docs/PRD-information-reconstruction-v0.5.md)
 - [Information Reconstruction V0.5](docs/information-reconstruction.md)
 - [Architecture](docs/architecture.md)
 - [Evaluation framework](docs/evaluation-framework.md)
